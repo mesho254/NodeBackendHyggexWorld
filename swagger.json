@@ -1,0 +1,285 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Node.js API with Swagger",
+      "description": "Simple Node.js Backend Application",
+      "version": "1.0.0"
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the user"
+            },
+            "dob": {
+              "type": "string",
+              "format": "date",
+              "description": "Date of birth of the user"
+            },
+            "location": {
+              "type": "string",
+              "description": "Location (city) of the user"
+            }
+          },
+          "required": ["name", "dob", "location"]
+        },
+        "UpdateUserInput": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string",
+              "description": "ID of the user to update"
+            },
+            "name": {
+              "type": "string",
+              "description": "Updated name of the user"
+            },
+            "dob": {
+              "type": "string",
+              "format": "date",
+              "description": "Updated date of birth of the user"
+            },
+            "location": {
+              "type": "string",
+              "description": "Updated location (city) of the user"
+            }
+          },
+          "required": ["userId", "name", "dob", "location"]
+        }
+      }
+    },
+    "paths": {
+      "/api/users/create-user": {
+        "post": {
+          "summary": "Create a new user",
+          "description": "Endpoint to create a new user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/users/get-random": {
+        "get": {
+          "summary": "Get a random user",
+          "description": "Endpoint to fetch a random user",
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/users/check-user": {
+        "post": {
+          "summary": "Check user existence",
+          "description": "Endpoint to check if a user exists by name",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the user to check"
+                    }
+                  },
+                  "required": ["name"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User exists",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "exists": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/users/age-above": {
+        "post": {
+          "summary": "Get users above a certain age",
+          "description": "Endpoint to retrieve users above a specified age",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "age": {
+                      "type": "number",
+                      "description": "Minimum age for filtering users"
+                    }
+                  },
+                  "required": ["age"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/users/names": {
+        "get": {
+          "summary": "List user names",
+          "description": "Endpoint to retrieve an array of user names",
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/users/update-user": {
+        "put": {
+          "summary": "Update user information",
+          "description": "Endpoint to update user information by ID",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "User not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/users/delete-user": {
+        "delete": {
+          "summary": "Delete a user",
+          "description": "Endpoint to delete a user by ID",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "description": "ID of the user to delete"
+                    }
+                  },
+                  "required": ["userId"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User deleted successfully"
+            },
+            "404": {
+              "description": "User not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    }
+  }
+  
