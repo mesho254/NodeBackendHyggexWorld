@@ -283,6 +283,12 @@
       }
     }
   },
+  "servers": [
+    {
+      "url": "https://node-backend-hyggex-world.vercel.app/",
+      "description": "My API Documentation"
+    }
+  ],
   "apis": ["src/**/*.js"]
 }
   
