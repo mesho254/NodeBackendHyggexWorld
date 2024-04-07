@@ -7,13 +7,18 @@ const cors = require('cors');
 const corsOptions={origin:"*",credentials:true,optionSuccessStatus:200};
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 dotenv.config();
 
+const specs = swaggerDocument
+
+
 // Swagger UI middleware
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {customCssUrl: CSS_URL}));
 
 // Middleware
 app.use(bodyParser.json());
