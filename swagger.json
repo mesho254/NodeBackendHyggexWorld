@@ -5,6 +5,13 @@
       "description": "Simple Node.js Backend Application",
       "version": "1.0.0"
     },
+    "servers": [
+      {
+        "url": "https://node-backend-hyggex-world-fmtln3c93-mesho254s-projects.vercel.app/",
+        "description": "My API Documentation"
+      }
+    ],
+    "apis": ["src/**/*.js"],
     "components": {
       "schemas": {
         "User": {
