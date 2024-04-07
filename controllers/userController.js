@@ -59,6 +59,9 @@ exports.checkUserExistence = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
+
+
+
 // Function to fetch users whose age is above a specified value
 // Input: { "age": 25 }
 // Returns: Array of user objects whose age is greater than or equal to 25
@@ -78,6 +81,7 @@ exports.getUsersAboveAge = async (req, res) => {
   }
 };
 
+
 // Function to fetch an array of names of all users in the database
 // Returns: Array of strings containing names of all users
 exports.listUserNames = async (req, res) => {
@@ -95,12 +99,15 @@ exports.listUserNames = async (req, res) => {
   }
 };
 
+
 // Function to update a user's information in the database by ID
 // Input: { "userId": "user_id_here", "name": "New Name", "dob": "New DOB", "location": "New Location" }
 // Returns: Updated user object
 exports.updateUser = async (req, res) => {
     try {
-      const { userId, name, dob, location } = req.body;
+
+      const userId = req.param.id;
+      const { name, dob, location } = req.body;
   
       // Find user by ID and update the fields
       const updatedUser = await User.findByIdAndUpdate(userId, { name, dob, location }, { new: true });
@@ -116,6 +123,7 @@ exports.updateUser = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
+
   
   // Function to delete a user from the database by ID
   // Input: { "userId": "user_id_here" }
@@ -125,7 +133,7 @@ exports.updateUser = async (req, res) => {
       const { userId } = req.body;
   
       // Find user by ID and delete
-      const deletedUser = await User.findByIdAndDelete(userId);
+      const deletedUser = await User.findByIdAndRemove(userId);
   
       // Check if user was found and deleted
       if (!deletedUser) {

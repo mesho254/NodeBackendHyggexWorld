@@ -213,7 +213,7 @@
           }
         }
       },
-      "/api/users/update-user": {
+      "/api/users/update-user/{userId}": {
         "put": {
           "summary": "Update user information",
           "description": "Endpoint to update user information by ID",
@@ -222,7 +222,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpdateUserInput"
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "description": "ID of the user to update"
+                    }
+                  },
+                  "required": ["userId"]
                 }
               }
             }
@@ -247,7 +254,7 @@
           }
         }
       },
-      "/api/users/delete-user": {
+      "/api/users/delete-user/{id}": {
         "delete": {
           "summary": "Delete a user",
           "description": "Endpoint to delete a user by ID",
