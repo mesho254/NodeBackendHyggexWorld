@@ -7,6 +7,7 @@ const cors = require('cors');
 const corsOptions={origin:"*",credentials:true,optionSuccessStatus:200};
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const swaggerJsDoc = require('swagger-jsdoc')
 const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
 
@@ -14,7 +15,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 dotenv.config();
 
-const specs = swaggerDocument
+
+
+const specs = swaggerJsDoc(swaggerDocument)
 
 
 // Swagger UI middleware

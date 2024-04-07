@@ -1,17 +1,11 @@
 {
+  "definition": {
     "openapi": "3.0.0",
     "info": {
       "title": "Node.js API with Swagger",
-      "description": "Simple Node.js Backend Application",
+      "description": "Simple Node.js Backend Application Documentation",
       "version": "1.0.0"
     },
-    "servers": [
-      {
-        "url": "https://node-backend-hyggex-world-fmtln3c93-mesho254s-projects.vercel.app/",
-        "description": "My API Documentation"
-      }
-    ],
-    "apis": ["src/**/*.js"],
     "components": {
       "schemas": {
         "User": {
@@ -288,5 +282,7 @@
         }
       }
     }
-  }
+  },
+  "apis": ["src/**/*.js"]
+}
   
