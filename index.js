@@ -37,6 +37,11 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/users', usersRouter);
 
+app.get("/",(req,res)=>{
+  res.status(200).json({
+      team_name:"Mesho Devs",dev_team:["Mesho","Mesho254"].sort()})
+  });
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
